@@ -1,6 +1,6 @@
 """Categorical actor-critic MLP for discrete actions (A2C assignment network).
 
-ASSIGNMENT (Part 3): complete ``DiscreteActorCritic.get_action_and_value``.
+Implements the categorical policy used by the discrete PPO pipeline.
 Check your work with:   python -m pytest tests/test_a2c.py
 """
 import numpy as np
@@ -65,11 +65,17 @@ class DiscreteActorCritic(nn.Module):
         Hint: ``torch.distributions.Categorical(logits=...)`` gives you
         ``sample()``, ``log_prob(action)`` and ``entropy()``.
         """
-        # ===================== YOUR CODE HERE (Part 3) =====================
-        raise NotImplementedError("Implement DiscreteActorCritic.get_action_and_value")
-        # ===================================================================
+        logits = self.actor(x)
+        distribution = Categorical(logits=logits)
+        if action is None:
+            action = logits.argmax(dim=-1) if deterministic else distribution.sample()
+        return action, distribution.log_prob(action), distribution.entropy(), self.get_value(x)
 
     def act(self, x, deterministic: bool = False):
         """Action selection for evaluation (uniform policy interface)."""
+        if deterministic:
+            # Arena inference only needs actor logits, not critic/distribution
+            # bookkeeping. This path also traces without Python validation.
+            return self.actor(x).argmax(dim=-1)
         action, _, _, _ = self.get_action_and_value(x, deterministic=deterministic)
         return action

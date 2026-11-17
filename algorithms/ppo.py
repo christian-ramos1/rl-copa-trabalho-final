@@ -1,6 +1,6 @@
 """PPO (discrete actions) — ``initialize`` / ``train`` lifecycle.
 
-ASSIGNMENT: complete the three blocks marked "YOUR CODE HERE":
+The three algorithmic blocks implemented here are:
     Part 1: compute_gae                   (this file)
     Part 2: compute_clipped_policy_loss   (this file)
     Part 3: approx_kl_and_clipfrac        (this file)
@@ -144,9 +144,15 @@ def compute_gae(
         r_t + gamma * nonterminal * V(s_{t+1}) - V(s_t)``, and ``returns =
         advantages + values`` (the critic's regression target).
     """
-    # ===================== YOUR CODE HERE (Part 1) =====================
-    raise NotImplementedError("Implement compute_gae")
-    # ===================================================================
+    advantages = torch.zeros_like(rewards)
+    last_advantage = torch.zeros_like(next_value)
+    for t in reversed(range(rewards.shape[0])):
+        next_nonterminal = 1.0 - (next_done if t == rewards.shape[0] - 1 else dones[t + 1])
+        next_values = next_value if t == rewards.shape[0] - 1 else values[t + 1]
+        delta = rewards[t] + gamma * next_nonterminal * next_values - values[t]
+        last_advantage = delta + gamma * gae_lambda * next_nonterminal * last_advantage
+        advantages[t] = last_advantage
+    return advantages, advantages + values
 
 
 def compute_clipped_policy_loss(
@@ -161,9 +167,11 @@ def compute_clipped_policy_loss(
     Returns a scalar whose gradient *descent* performs ascent on that
     objective.
     """
-    # ===================== YOUR CODE HERE (Part 2) =====================
-    raise NotImplementedError("Implement compute_clipped_policy_loss")
-    # ===================================================================
+    ratio = (newlogprob - oldlogprob.detach()).exp()
+    advantages = advantages.detach()
+    objective = ratio * advantages
+    clipped = ratio.clamp(1.0 - clip_coef, 1.0 + clip_coef) * advantages
+    return -torch.minimum(objective, clipped).mean()
 
 
 def approx_kl_and_clipfrac(
@@ -176,9 +184,10 @@ def approx_kl_and_clipfrac(
     ``(ratio - 1) - log(ratio)`` (http://joschu.net/blog/kl-approx.html);
     ``clipfrac`` is the fraction of samples with ``|ratio - 1| > clip_coef``.
     """
-    # ===================== YOUR CODE HERE (Part 3) =====================
-    raise NotImplementedError("Implement approx_kl_and_clipfrac")
-    # ===================================================================
+    with torch.no_grad():
+        logratio = newlogprob - oldlogprob
+        ratio = logratio.exp()
+        return ((ratio - 1.0) - logratio).mean(), ((ratio - 1.0).abs() > clip_coef).float().mean()
 
 
 class PPO(Algorithm):

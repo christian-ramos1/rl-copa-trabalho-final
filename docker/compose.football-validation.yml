@@ -1,0 +1,5 @@
+# Optional, infrastructure only. Use the same shared-memory capacity for both
+# benchmark conditions. Does not change the model, arena or CPU-only image.
+services:
+  gfootball:
+    shm_size: "1gb"

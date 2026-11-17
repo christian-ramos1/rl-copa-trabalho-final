@@ -1,0 +1,36 @@
+# E03 first phase. Transfer to 5_vs_5 using football_train.py --init-from.
+algorithm: ppo
+env_id: GFootball/academy_run_to_score_with_keeper-v0
+env_kwargs:
+  representation: simple115v2
+  rewards: scoring,checkpoints
+  controlled_players: 1
+  opponent: builtin
+seed: 1
+cuda: false
+total_timesteps: 262144
+num_envs: 4
+track: false
+capture_video: false
+save_model: true
+checkpoint_every: 65536
+checkpoints_to_keep: 3
+network: DiscreteActorCritic
+network_kwargs:
+  activation: Tanh
+  hidden_layers_size: 64
+ppo:
+  learning_rate: 0.00025
+  num_steps: 128
+  anneal_lr: true
+  gamma: 0.99
+  gae_lambda: 0.95
+  num_minibatches: 4
+  update_epochs: 4
+  norm_adv: true
+  clip_coef: 0.2
+  clip_vloss: true
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  target_kl: null

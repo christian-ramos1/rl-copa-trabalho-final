@@ -208,6 +208,9 @@ __marimo__/
 
 
 runs/
+results/
+submissions/
+report/figures/
 wandb/
 .cursor/
 .github/agents/

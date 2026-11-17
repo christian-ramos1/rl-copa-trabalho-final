@@ -1,0 +1,2 @@
+# Only needed to generate report figures, not in the submitted agent.
+matplotlib>=3.10,<4

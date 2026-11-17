@@ -1,0 +1,31 @@
+Você vai validar a máquina candidata com NVIDIA L40S para este projeto de RL.
+A troca do Core Ultra 9/RTX 5070 ainda não foi decidida.
+
+Leia AGENTS.md, docs/projeto/DECISOES.md e docs/projeto/VALIDAR_L40S.md.
+Execute o guia na ordem, sem iniciar uma campanha longa:
+
+1. Colete current-runtime.json e confira quotas/afinidade reais de CPU,
+   limites/headroom de RAM, /dev/shm, GPU, Torch e disponibilidade de Docker.
+2. Escolha o caminho Docker ou ambiente local conforme o acesso efetivo.
+   Confirme que o diretório do repositório está montado no ambiente de execução.
+   Registre persistência e disponibilidade da instância com as informações do
+   provedor/responsável; se desconhecidas, não as presuma.
+3. Execute o smoke completo. Pare se houver falha de runtime ou checker FAIL.
+   Não altere as regras da arena para passar. Um WARN de política constante
+   em treino curto deve ser registrado, não escondido.
+4. Execute o benchmark CPU do guia: 4x128 versus 8x64, batch 512,
+   65.536 passos por run, warmup 8192, três pares de seeds, sem concorrência.
+   Não mude recompensa, rede, algoritmo ou hiperparâmetros entre condições.
+5. Devolva os JSONs, CSVs, logs, hashes/versões e caminhos dos runs, juntamente
+   com a análise de mediana, dispersão, throttling, memória e estabilidade.
+   Não invente resultados ausentes nem interprete esse benchmark como melhoria
+   de qualidade do agente. Não troque a configuração da campanha automaticamente.
+
+O guia contém os comandos completos. Se só houver acesso ao container atual,
+não suba Docker privilegiado nem altere o Python compartilhado ou os drivers.
+Se faltarem dependências/permissões, registre o erro e a proposta de ambiente
+isolado necessário. CUDA indisponível na imagem CPU é esperado.
+
+Para recomendar troca de máquina por velocidade, precisamos do mesmo protocolo
+também no Core Ultra 9/WSL, com versões comparáveis. Se só medir a L40S,
+limite a conclusão à viabilidade e ao melhor paralelismo dentro dela.

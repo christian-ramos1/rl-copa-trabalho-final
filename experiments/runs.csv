@@ -1,0 +1,2 @@
+experiment_id,run_dir,seed,status,parent_run,planned_phase_steps,actual_phase_steps,total_lineage_steps,git_commit,train_log,evaluation_dir,notes
+E00,runs/ppo_football_sparse/GFootball-5_vs_5-v0__a1ff80e299ee70c4__1__20261117_130047,1,smoke_passed,,4096,4096,4096,6729aa1cf97aebd7be3b774b0462755210f247f3 (local changes),results/smoke-20261117-validation/train.log,results/smoke-20261117-validation/evaluation,CPU ARM64; official checker PASS; 600/600 probe; constant action 8 warning; technical validation only

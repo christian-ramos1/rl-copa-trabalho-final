@@ -1,0 +1,28 @@
+Você tem acesso ao repositório base do meu trabalho final da disciplina de Aprendizado por Reforço. Vou te passar as instruções do trabalho final aqui e vamos pensar como vamos organizar as entregas e treinamentos. Você será o orquestrador, irá montar todo o pipeline, ver se está concistente para que eu deixe tudo pronto para que meu amigo faça o treinamento (ele irá passar o repositório para a IA dele para fazer o treinamento), então é legal que esteja tudo documentado, os passo a passos de o que deve fazer e como fazer e o porque de fazer isso. Aqui está as instruções:
+
+Projeto: Google Research Football
+
+O projeto tem duas entregas e um campeonato. Entregas:
+1. Relatório(PDF): como vocês modelaram o problema, o que testaram e o que os dados mostram.
+2. Código: uma pasta de submissão com o seu agente, que joga um torneio contra os agentes das outras equipes. O formato está fixado abaixo.
+
+Entrega 1: relatório
+
+Um relatório em PDF com no MÁXIMO 6 páginas, modelo coluna dupla e as seções abaixo.
+
+1. Modelagem do MDP. Estados (qual representação de observação e por quê), ações, recompensa, fim de episódio, fator de desconto. Quantos jogadores vocês controlam e por quê. Caso vocês apresentem comparações de modelagens diferentes, apresente aqui também quais são as modelagens testadas.
+2. Pipeline de treino do agente final. Como o agente submetido foi treinado, com detalhe suficiente para que outra pessoa consiga reproduzi-lo: o algoritmo, a arquitetura da rede e a sequência de fases do treino (cenários, adversários, recompensas, quanto tempo cada fase durou e o que determinou a passagem para a seguinte). Os hiperparâmetros podem ir em uma tabela, sem necessariamente justificar cada valor.
+3. Experimentos e resultados. As modificações que vocês testaram ao longo do projeto (recompensas, currículo, self-play, adversários, número de jogadores, representação, arquitetura), inclusive as que não entraram no agente final. A seção deve explicar o que levou a cada mudança, contra o que ela foi comparada e o que os dados mostraram (essencialmente, por que não simplesmente usar um treino padrão do PPO?), e termina com o desempenho do agente final contra baselines de dificuldade e versões anteriores dele mesmo.
+4. Discussão. A interpretação do conjunto: o que funcionou, o que não funcionou e por quê, as limitações do agente final e o que vocês testariam em seguida.
+
+Regras:
+
+- Todo resultado precisa de dados: tabelas e gráficos (curvas de treino, placares, taxas de vitória contra `random`, `builtin` e versões anteriores do próprio agente, etc.), com os runs identificados.
+- Toda decisão precisa de motivo observado. Quando mudaram algo (uma recompensa, uma fase do currículo, a arquitetura), mostrem qual comportamento motivou a mudança, com o dado ou gráfico correspondente, e o que aconteceu depois dela. "Achamos que ficaria melhor" não é motivo; "o agente ficava   parado com a bola, veja a figura X" é.
+- O uso de inteligência artificial generativa deve ser declarado. Diga em quais partes do relatório utilizou, qual a IA utilizada e o prompt na forma de anexo ao relatório.
+
+Entrega 2: código (pasta de submissão)
+
+O agente final é uma pasta de submissão. Faremos um torneio todos contra todos com o agente de cada outra equipe no cenário 5_vs_5 (3000 passos, goleiros controlados pela IA do jogo). O treino é livre: qualquer cenário, qualquer algoritmo, currículo, self-play, vários jogadores. Só a *interface* da pasta é fixa.
+
+Antes de entregar, rodem o mesmo verificador que a correção usa, ele está no código. Submissões não compatíveis não serão aceitas.

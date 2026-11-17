@@ -1,5 +1,18 @@
 # t-zero
 
+## Nosso trabalho final de Aprendizado por Reforço
+
+Comece por [docs/projeto/PLANO.md](docs/projeto/PLANO.md). O
+[guia de execução](docs/projeto/EXECUCAO.md) contém a preparação em Windows/WSL2,
+testes, treino, transferência de pesos, exportação e avaliação. O
+[protocolo experimental](docs/projeto/EXPERIMENTOS.md) e o
+[roteiro do relatório](report/roteiro.md) organizam as evidências da entrega.
+O smoke com o motor Football e o checker oficial está validado: veja
+[evidências e limites da validação](docs/projeto/VERIFICACAO.md). As campanhas
+comparativas de treino ainda não foram executadas.
+Para avaliar a máquina alternativa com L40S, seguir
+[diagnóstico e benchmark de infraestrutura](docs/projeto/VALIDAR_L40S.md).
+
 A readable starting point for reinforcement-learning research, built on
 [CleanRL](https://github.com/vwxyzjn/cleanrl)'s single-file implementations.
 

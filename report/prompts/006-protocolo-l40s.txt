@@ -1,0 +1,1 @@
+Pode preparar os comandos para a IA do meu amigo validar essa máquina com L40S, conferir os limites do container, rodar o smoke e comparar o desempenho com 4 e 8 ambientes antes de decidirmos a troca?

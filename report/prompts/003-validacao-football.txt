@@ -1,0 +1,1 @@
+Pode validar agora com o motor do Football, rodar o smoke, exportar o agente e executar o checker oficial? Quero deixar tudo conferido antes de passar o repositório para meu amigo.
